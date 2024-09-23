@@ -76,7 +76,7 @@
     </style>
 </head>
 <body>
-    <form id="signupForm" action="https://formsubmit.co/your-email@example.com" method="POST">
+    <form id="signupForm" action="https://formsubmit.co/mikamilky2020@gmail.com" method="POST">
         <h2>טופס הצטרפות ללקוחות חדשים</h2>
         <label for="first_name">שם פרטי:</label>
         <input type="text" id="first_name" name="first_name" required>
@@ -123,5 +123,43 @@
         
         <input type="submit" value="שליחה">
     </form>
+
+    <!-- JavaScript code for EmailListVerify API integration -->
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the default way
+
+            // Collect email data from the form
+            const email = document.getElementById('email').value;
+
+            // Your API key for EmailListVerify
+            const apiKey = 'W86aPxevfGDyqHkKIaRM';  // The provided API key
+
+            // Construct the API URL with the email and API key
+            const apiUrl = `https://app.emaillistverify.com/api/verifEmail?secret=${apiKey}&email=${email}`;
+
+            // Perform the API request to verify the email
+            fetch(apiUrl, {
+                method: 'GET',
+            })
+            .then(response => response.json())  // Parse the JSON from the API response
+            .then(result => {
+                console.log('API Response:', result); // Check the response
+
+                // The API response will contain details about the validity of the email
+                if (result.status === '1') {
+                    alert('Email is valid! Proceeding with form submission.');
+                    // Proceed with form submission (e.g., to a backend or email service)
+                    document.getElementById('signupForm').submit();
+                } else {
+                    alert(`Invalid email address: ${result.info}. Please enter a valid email.`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an issue verifying the email. Please try again.');
+            });
+        });
+    </script>
 </body>
 </html>
