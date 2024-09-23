@@ -76,7 +76,7 @@
     </style>
 </head>
 <body>
-    <form id="signupForm" action="https://formsubmit.co/MikaMilky2020@gmail.com" method="POST">
+    <form id="signupForm" action="https://formsubmit.co/your-email@example.com" method="POST">
         <h2>טופס הצטרפות ללקוחות חדשים</h2>
         <label for="first_name">שם פרטי:</label>
         <input type="text" id="first_name" name="first_name" required>
@@ -144,15 +144,19 @@
             })
             .then(response => response.json())  // Parse the JSON from the API response
             .then(result => {
-                console.log('API Response:', result); // Check the response
+                console.log('API Response:', result); // Log the full API response to inspect the structure
+
+                // Check if the 'info' field exists in the result
+                const emailStatus = result.status || 'undefined';  // If status is undefined, return 'undefined'
+                const emailInfo = result.info || 'No additional information';  // Provide a default message
 
                 // The API response will contain details about the validity of the email
-                if (result.status === '1') {
+                if (emailStatus === '1') {
                     alert('Email is valid! Proceeding with form submission.');
                     // Proceed with form submission (e.g., to a backend or email service)
                     document.getElementById('signupForm').submit();
                 } else {
-                    alert(`Invalid email address: ${result.info}. Please enter a valid email.`);
+                    alert(`Invalid email address: ${emailInfo}. Please enter a valid email.`);
                 }
             })
             .catch(error => {
