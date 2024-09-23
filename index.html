@@ -55,6 +55,7 @@
         }
         .phone-input {
             display: flex;
+            flex-direction: row-reverse;  /* Changed this line */
             gap: 10px;
         }
         .phone-input select {
@@ -91,6 +92,7 @@
         
         <label for="phone">מספר טלפון:</label>
         <div class="phone-input">
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{7}" required placeholder="1234567">
             <select id="phone_prefix" name="phone_prefix" required>
                 <option value="">קידומת</option>
                 <option value="050">050</option>
@@ -101,7 +103,6 @@
                 <option value="055">055</option>
                 <option value="058">058</option>
             </select>
-            <input type="tel" id="phone" name="phone" pattern="[0-9]{7}" required placeholder="1234567">
         </div>
         
         <label for="destination">יעד מבוקש:</label>
